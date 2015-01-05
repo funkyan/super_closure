@@ -5,7 +5,8 @@ class_alias('SuperClosure\SerializableClosure', 'Jeremeamia\SuperClosure\Seriali
 
 use SuperClosure\ClosureParser\ClosureParser;
 
-const TURBO_MODE = 'turbo_mode';
+defined('TURBO_MODE') || define('TURBO_MODE', 'turbo_mode'));
+// const TURBO_MODE = 'turbo_mode';
 
 /**
  * A convenient function that abstracts closure serialization process.
