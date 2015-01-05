@@ -5,7 +5,7 @@ class_alias('SuperClosure\SerializableClosure', 'Jeremeamia\SuperClosure\Seriali
 
 use SuperClosure\ClosureParser\ClosureParser;
 
-defined('TURBO_MODE') || define('TURBO_MODE', 'turbo_mode'));
+defined('TURBO_MODE') || define('TURBO_MODE', 'turbo_mode');
 // const TURBO_MODE = 'turbo_mode';
 
 /**
