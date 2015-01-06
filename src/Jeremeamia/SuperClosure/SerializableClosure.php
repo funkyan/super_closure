@@ -14,7 +14,7 @@ class SerializableClosure implements \Serializable
     /**
      * @var \Closure The closure being made serializable
      */
-    private static $CLOSURE;
+    protected $closure;
 
     /**
      * @var \ReflectionFunction The reflected closure
@@ -31,7 +31,7 @@ class SerializableClosure implements \Serializable
      */
     public function __construct(\Closure $closure)
     {
-        self::$CLOSURE = $closure;
+        $this->closure = $closure;
     }
 
     /**
@@ -40,7 +40,7 @@ class SerializableClosure implements \Serializable
     public function getReflection()
     {
         if (!$this->reflection) {
-            $this->reflection = new \ReflectionFunction(self::$CLOSURE);
+            $this->reflection = new \ReflectionFunction($this->closure);
         }
 
         return $this->reflection;
@@ -51,7 +51,7 @@ class SerializableClosure implements \Serializable
      */
     public function getClosure()
     {
-        return self::$CLOSURE;
+        return $this->closure;
     }
 
     /**
@@ -78,8 +78,6 @@ class SerializableClosure implements \Serializable
         return serialize($this->state);
     }
 
-
-
     /**
      * Unserializes the closure data and recreates the closure. Attempts to recreate the closure's context as well by
      * extracting the used variables into the scope. Variables names in this method are surrounded with underlines in
@@ -96,13 +94,9 @@ class SerializableClosure implements \Serializable
 
         // Simulate the original context the Closure was created in
         extract($__context__);
-//echo $__code__;
-
-//        eval("exit(get_class(\$this));");
 
         // Evaluate the code to recreate the Closure
-        eval("self::\$CLOSURE = {$__code__};");
-//        eval("\$this->closure = ".$__code__.";");
+        eval("\$this->closure = {$__code__};");
     }
 
     /**
